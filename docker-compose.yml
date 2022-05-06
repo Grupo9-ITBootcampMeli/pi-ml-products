@@ -1,0 +1,33 @@
+version: '3.1'
+
+services:
+  app2:
+    image: 'products:latest'
+    build:
+      context: .
+    container_name: products
+    ports:
+      - "8081:8081"
+    depends_on:
+      - dbproducts
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://dbproducts:5432/product
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  dbproducts:
+    image: 'postgres'
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=product
+
+networks:
+  default:
+    external:
+      name: challenge-network
