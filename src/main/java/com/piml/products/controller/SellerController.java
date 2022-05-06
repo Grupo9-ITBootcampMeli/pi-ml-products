@@ -19,6 +19,11 @@ public class SellerController {
     @Autowired
     private SellerAPIService sellerAPIService;
 
+    /**
+     * POST method to register a new Seller
+     * @param seller receives a request containing a seller to create
+     * @return the response containing a new seller created
+     */
     @ApiOperation(value = "Register a new Seller")
     @PostMapping("/seller/v1")
     public ResponseEntity<SellerResponseDTO> createSeller(@Valid @RequestBody SellerDTO seller) {
@@ -27,6 +32,11 @@ public class SellerController {
         return new ResponseEntity<SellerResponseDTO>(returnSeller, HttpStatus.CREATED);
     }
 
+    /**
+     * GET method to find Seller by ID
+     * @param id receives the corresponding id of the seller to be found
+     * @return the seller with the corresponding ID
+     */
     @ApiOperation(value = "Find Seller by ID")
     @GetMapping("/seller/v1/{id}")
     public ResponseEntity<SellerDTO> getSellerById(@PathVariable Long id) {
